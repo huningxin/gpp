@@ -1,0 +1,106 @@
+body {font-family: tahoma, arial; padding: 0px; margin: 0px; color: #30303f; font-size: 1em; background-color: #fffae5;}
+img {border:0px;}
+h1 {font-size: 1.5em; margin: 0px;}
+h2 {border-bottom: 0.15em solid #bad3e8; font-size: 1.2em; margin-top: 0.7em; margin-bottom: 0.2em;}
+.loud {font-weight: bold; color: red;}
+.header {color: #bad3e8; padding: 0px; margin: 0px;}
+.headerInner {background-color: #bad3e8;}
+.headerBottom {background: url(/img/HeaderBackground.png) no-repeat; height: 62px; margin-bottom: 10px;}
+.socialButtons {padding-top: 20px; padding-left: 215px;}
+
+.meesterMarkLogo {
+	position: absolute;
+	top: 1.5em;
+	/* left: 0em; */
+	text-decoration: none;
+}
+
+.meesterMarkLogo span {
+	display: block;
+	color: #419be8;
+	width: 5em;
+	text-align: center;
+	text-shadow: 0px 0px 10px #000050,0px 0px 10px #000050,0px 0px 10px #000050;
+}
+
+.meesterMarkLogo .logoMeester {
+    font-family: Satisfy;
+    font-size: 2em;
+}
+
+.meesterMarkLogo .logoMark {
+    font-size: 2em;
+    font-weight: bold;
+    position: relative;
+    top: -1em;
+}
+
+.meesterMarkLogo .logoNl {
+    font-size: 1.7em;
+    position: relative;
+    top: -2.2em;
+    margin-left: 1.9em;
+    color: #000050;
+    text-shadow: none;
+}
+
+.meesterMark {position: absolute; top: 5px; right: 20px; width: 80px; cursor: pointer;}
+.meesterMarkBlog {position: absolute; top: 5px; right: 105px; width: 30px; height: 30px; background: url(/img/LightBulb.png)}
+.speechBubble {position: absolute; top: 70px; right: 80px; }
+.speechBubbleContents {position: absolute; top: 120px; right: 121px; width: 135px; height: 65px; font-size: 14px; color: black; font-weight: normal; text-align: center;}
+.content {margin-left: 15px; margin-right: 15px;}
+.indexContents {margin-right: 300px;}
+
+.menu {
+	margin-left: 200px; 
+	margin-right: 200px;
+}
+
+.menuItem {
+	width: 5em;
+	height: 4em;
+	float:left;
+	font-family: Satisfy;
+	font-size: 1.2em;
+	position:  relative;
+    text-decoration: none;
+}
+
+.menuItem span {
+    top: 55%;
+    position:  absolute;
+    text-align: center;
+    width: 100%;
+    display: block;
+    color: #000050;
+    text-shadow: 3px 3px 5px white, -3px -3px 5px white,-3px 3px 5px white, 3px -3px 5px white,3px 3px 5px white, -3px -3px 5px white,-3px 3px 5px white, 3px -3px 5px white;
+}
+
+.menuItem span.twoLines {top: 46%;line-height: 1em;}
+
+.trots {background: url(/img/Trots.png)  no-repeat center;}
+.plusRekenen {background: url(/img/Rekenen.png)  no-repeat center;}
+.verkiezingen {background: url(/img/Verkiezingen.png)  no-repeat center;}
+.negentiendeEeuw {background: url(/img/19eEeuw.png)  no-repeat center;}
+.cV {background: url(/img/CV.png)  no-repeat center;}
+.leonardo {background: url(/img/Leonardo.png)  no-repeat center;}
+.googleApps {background: url(/img/GoogleApps.png)  no-repeat center;}
+
+.herrieMeter {background: url(/img/HerrieMeter.png)  no-repeat center;}
+
+.aardrijkskunde {background: url(/img/Aardrijkskunde.png)  no-repeat center;}
+.geschiedenis {background: url(/img/Geschiedenis.png)  no-repeat center;}
+.natuur {background: url(/img/Natuur.png)  no-repeat center;}
+.techniek {background: url(/img/Techniek.png)  no-repeat center;}
+.taal {background: url(/img/Taal.png)  no-repeat center;}
+.menuLinks {background: url(/img/Links.png)  no-repeat center;}
+.menuMateriaal {background: url(/img/Materiaal.png)  no-repeat center;}
+.menuProgrammeren {background: url(/img/Programmeren.png)  no-repeat center;}
+.menuBijles {background: url(/img/Bijles.png)  no-repeat center;}
+.news {/* padding: 5px; *//* font-size: 16pt; */}
+.news div img {display: inline-block;padding-right: 10px;}
+.news div {padding: 5px;text-indent: -30px;margin-left: 30px;}
+
+#preview{position:absolute; border:2px solid #bad3e8; display:none;}
+#contents {min-height: 400px;}
+

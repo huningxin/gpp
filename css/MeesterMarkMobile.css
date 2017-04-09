@@ -1,0 +1,155 @@
+
+@media screen and (max-device-width: 320px){
+	body {}
+	img {}
+	h1 {
+    font-size: 1.2em;
+}
+	h2 {}
+	.loud {}
+	.header {}
+	.headerInner {
+    padding-bottom: 0.5em;
+    border-bottom: 0.15em solid #000005;
+}
+	.headerBottom {
+    background-image: none;
+    height: 0px;
+}
+	.socialButtons {
+    /* padding-left: 2em; */
+    position:  absolute;
+    top: 0em;
+    right: 1em;
+    /* width: 130px; */
+    padding-left: 0;
+}
+
+	.meesterMarkLogo {
+    position: inherit;
+    background-color: #bad3e8;
+    display:  block;
+    height: 4em;
+}
+	.meesterMarkLogo span {}
+	.meesterMarkLogo .logoMeester {}
+	.meesterMarkLogo .logoMark {}
+	.meesterMarkLogo .logoNl {}
+
+	.meesterMark {
+    display: none;
+}
+	.meesterMarkBlog {
+    display: none;
+}
+	.speechBubble {}
+	#speechBubbleContainer {display:none;}
+	.content {}
+	.indexContents {
+    margin-right: 0px;
+}
+
+	.menu {
+    /* clear: both; */
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+	.menuItem {}
+	
+	.menuItem span {}
+
+	.cV {}
+	.herrieMeter {}
+	.herrieMeter span {}
+	.menuLinks {}
+	.menuMateriaal {}
+	
+	.news {}
+	.news div {}
+	.news div img {}
+
+	#preview{}
+	#contents {}
+
+}
+
+@media screen and (min-device-width: 321px) and (max-device-width: 840px){
+	body {}
+	img {}
+	h1 {
+    font-size: 1.2em;
+}
+	h2 {
+    font-size: 1.1em;
+}
+	.loud {}
+	.header {}
+	.headerInner {
+    padding-bottom: 0.5em;
+    border-bottom: 0.15em solid #000005;
+}
+	.headerBottom {
+    background-image: none;
+    height: 0px;
+}
+	.socialButtons {
+    /* padding-left: 2em; */
+    position:  absolute;
+    top: 0em;
+    right: 1em;
+    /* width: 130px; */
+    padding-left: 0;
+}
+
+	.meesterMarkLogo {
+    position: inherit;
+    background-color: #bad3e8;
+    display:  block;
+    height: 4em;
+}
+	.meesterMarkLogo span {}
+	.meesterMarkLogo .logoMeester {}
+	.meesterMarkLogo .logoMark {}
+	.meesterMarkLogo .logoNl {}
+
+	.meesterMark {
+    display: none;
+}
+
+	.meesterMarkBlog {
+    display: none;
+}
+
+
+	.speechBubble {}
+	#speechBubbleContainer {display:none;}
+	.content {}
+	.indexContents {
+    margin-right: 0px;
+}
+
+	.menu {
+    /* clear: both; */
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+	.menuItem {}
+	
+	.menuItem span {}
+
+	.cV {}
+	.herrieMeter {}
+	.herrieMeter span {}
+	.menuLinks {}
+	.menuMateriaal {}
+	
+	.news {}
+	.news div {}
+	.news div img {}
+
+	#preview{}
+	#contents {}
+
+}

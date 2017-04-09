@@ -1,0 +1,34 @@
+#wrapper {
+margin-top:  2em;
+}
+
+.tile {
+  display:  block;
+  text-align: center;
+  width: 100px;
+  float: left;
+  text-decoration: none;
+  color: black;
+  margin-right: 10px;
+}
+.tile img{
+	width: 100px;
+}
+
+.tile p {
+  margin: 0;
+}
+
+.avatars{
+	background-image: url(./img/KlassenFotoBackground/HillAndHouse.jpg);
+	background-size: cover;
+	margin: 0 auto;
+}
+
+.avatars img {
+	cursor: pointer;
+}
+
+h1 {
+	margin-bottom: 10px;
+}

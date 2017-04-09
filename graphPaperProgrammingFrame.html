@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <script src="/Blockly/blockly_compressed.js"></script>
+    <script src="/Blockly/blocks_compressed.js"></script>
+    <script src="/Blockly/msg/js/nl.js"></script>
+		<script src="/Blockly/javascript_compressed.js"></script>
+    <style>
+      html, body {
+        background-color: #fff;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        height: 100%;
+      }
+      .blocklySvg {
+        height: 100%;
+        width: 100%;
+      }
+    </style>
+    <script>
+			// https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#uhuyt2
+			function getInit(imageSuffix){
+				return function() {
+					this.setColour(65);
+					this.appendValueInput("NEXTACTIONS")
+							.setCheck("ACTIONS")
+							.setAlign(Blockly.ALIGN_CENTRE)
+							.appendField(new Blockly.FieldImage("http://meestermark.nl/Programmeren/img/GraphProgramming" + imageSuffix + ".png", 25, 30, "*"));
+					this.setOutput(true, "ACTIONS");				}
+			}
+
+      function init() {
+      			Blockly.Blocks.gpp_move_up = {
+							init: getInit("Up")
+						};
+
+						Blockly.Blocks.gpp_move_right = {
+							init: getInit("Right")
+						};
+
+						Blockly.Blocks.gpp_move_left = {
+							init: getInit("Left")
+						};
+
+						Blockly.Blocks.gpp_move_down = {
+							init: getInit("Down")
+						};
+
+						Blockly.Blocks.gpp_draw = {
+							init: getInit("Draw")
+						};
+						
+						Blockly.Blocks['gpp_run'] = {
+							init: function() {
+								this.setColour(120);
+								this.appendValueInput("NEXTACTIONS")
+										.setCheck("ACTIONS")
+										.setAlign(Blockly.ALIGN_CENTRE);
+								this.setPreviousStatement(true);
+								this.setNextStatement(true);
+							}
+						};
+
+						
+						function getCode(block, name){
+						  var value_nextactions = Blockly.JavaScript.valueToCode(block, 'NEXTACTIONS', Blockly.JavaScript.ORDER_NONE);
+						  if(value_nextactions === ""){
+								var code = "viewModel.run(['" + name + "'])";
+						  } else {
+								var code = "viewModel.run(['" + name + "', " + value_nextactions.substring(15);
+						  }
+							return [code, Blockly.JavaScript.ORDER_ATOMIC];
+						}
+
+						Blockly.JavaScript.gpp_move_up = function(block) {
+							return getCode(block, "moveUp");
+						};
+
+						Blockly.JavaScript.gpp_move_down = function(block) {
+							return getCode(block, "moveDown");
+						};
+
+						Blockly.JavaScript.gpp_move_right = function(block) {
+							return getCode(block, "moveRight");
+						};
+
+						Blockly.JavaScript.gpp_move_left = function(block) {
+							return getCode(block, "moveLeft");
+						};
+
+						Blockly.JavaScript.gpp_draw = function(block) {
+							return getCode(block, "draw");
+						};
+						      
+        Blockly.inject(document.body, {toolbox: document.getElementById('toolbox')});
+        // Let the top-level application know that Blockly is ready.
+        window.parent.blocklyLoaded(Blockly);
+      }
+    </script>
+  </head>
+  <body onload="init()">
+    <xml id="toolbox" style="display: none">
+    <block type="gpp_draw"></block>
+    <block type="gpp_move_right"></block>
+    <block type="gpp_move_down"></block>
+    <block type="gpp_move_left"></block>
+    <block type="gpp_move_up"></block>
+
+      </xml>
+  </body>
+</html>

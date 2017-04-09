@@ -1,0 +1,412 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" xmlns:fb="http://ogp.me/ns/fb#" >
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="author" content="Mark Hasper" />
+		<meta name="keywords" content="" />
+		<meta name="description" content="Programmeren" />
+		<meta name="robots" content="all" />
+		<title>Programmeren</title>
+        <link rel="stylesheet" type="text/css" href="/css/MeesterMark.css" />
+        <link rel="stylesheet" type="text/css" href="/css/MeesterMarkMobile.css?a=2" />
+        <link href='http://fonts.googleapis.com/css?family=Satisfy' rel='stylesheet' type='text/css'>
+        <script type='text/javascript' src='/js/jquery-1.10.1.min.js'></script>
+        <script type='text/javascript' src='/js/jquery-ui-1.10.3.custom.min.js'></script>
+        <script type='text/javascript' src='/js/jquery.json-2.3.min.js'></script>
+        <script type='text/javascript' src='/js/jquery.ui.touch-punch.min.js'></script>
+        <script type='text/javascript' src='/js/MeesterMark.js'></script>
+ 	</head>
+  <script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-28520558-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+
+  </script>  	<body>
+    <div id="fb-root"></div>
+    <script>
+    (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/nl_NL/all.js#xfbml=1";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+    </script>
+
+    <div class='leftBorder'></div>
+    <div class='rightBorder'></div>
+    </div>
+    <div class='content'>  <link rel="stylesheet" type="text/css" href="Programmeren.css" />
+  <style>
+
+		td {
+				vertical-align: top;
+		}
+		
+		td.isFilled {
+			background-color: black;
+		}
+		
+		td.isCursor {
+			background-image: url(img/GraphProgrammingCursor.png);
+			background-repeat: no-repeat;
+			background-position: center;
+		}
+		
+		table.graphPaper {
+			margin-left: 20px;
+			border-spacing: 0px;
+			border-collapse: collapse;
+		}
+		
+		table.graphPaper td{
+			margin: 0px;
+			border: 1px solid black;
+			width: 40px;
+			height: 40px;
+			
+		}
+  </style>
+	<script src="/js/knockout-3.1.0.js"></script>
+
+  <script type='text/javascript'>
+  		var viewModel = {};
+
+			viewModel.rowCount = ko.observable(4);
+			viewModel.columnCount = ko.observable(4);
+			viewModel.cursor = ko.observable({x: 0, y: 0});
+
+			var rows = [];
+			for(var i = 0; i < viewModel.rowCount(); i++){
+				var cells = [];
+				for(var j = 0; j < viewModel.columnCount(); j++){
+					var cell = {isFilled: ko.observable(false)};
+					cells.push(cell);
+				}
+				rows.push(ko.observableArray(cells));
+			}
+			viewModel.rows = ko.observableArray(rows);
+			
+			viewModel.isCursorValid = function(cursor){
+				return cursor.x >= 0 && cursor.y >= 0 && cursor.x < viewModel.columnCount() && cursor.y < viewModel.rowCount();
+			}
+			
+			viewModel.tryMove = function(newCursor){
+				if(viewModel.isCursorValid(newCursor)){
+					viewModel.cursor(newCursor);
+				}
+			}
+			
+			viewModel.actions = [];
+			
+			viewModel.run = function(actions){
+				viewModel.actions = viewModel.actions.concat(actions);
+			}
+			
+			viewModel.moveUp = function(){
+				viewModel.tryMove({x: viewModel.cursor().x, y: viewModel.cursor().y - 1});
+			}
+
+			viewModel.moveRight = function(){
+				viewModel.tryMove({x: viewModel.cursor().x + 1, y: viewModel.cursor().y});
+			}
+
+			viewModel.moveLeft = function(){
+				viewModel.tryMove({x: viewModel.cursor().x - 1, y: viewModel.cursor().y});
+			}
+
+			viewModel.moveDown = function(){
+				viewModel.tryMove({x: viewModel.cursor().x, y: viewModel.cursor().y + 1});
+			}
+			
+			viewModel.draw = function(){
+				viewModel.rows()[viewModel.cursor().y]()[viewModel.cursor().x].isFilled(true);
+			}
+			
+			viewModel.evaluate = function(){
+				$.each(viewModel.rows(), function(){
+					$.each(this(), function(){
+						this.isFilled(false);
+					});
+				});
+				viewModel.cursor({x: 0, y: 0});
+				Blockly.JavaScript.addReservedWords('code', 'viewModel');
+				var code = Blockly.JavaScript.workspaceToCode();
+				// $("#output").html(code);
+				try {
+					eval(code);
+				} catch (e) {
+					alert(e);
+				}
+			}
+			
+		function blocklyLoaded(blockly) {
+			// Called once Blockly is fully loaded.
+			window.Blockly = blockly;
+			
+			//Blockly.Xml.domToWorkspace(Blockly.mainWorkspace,$("#hiBlocks")[0]);
+
+			Blockly.addChangeListener(function(){
+				// do nothing
+			});
+			
+
+		}
+		
+		setInterval(function(){
+			if(viewModel.actions.length > 0){
+				var action = viewModel.actions.shift();
+				viewModel[action]();
+			}
+		}, 100);
+		
+    $(function () {
+			ko.applyBindings(viewModel); 
+    });
+    
+  </script>
+<h1>请输入你的程序：</h1>
+<div id="wrapper">
+	<div id='output'></div>
+  <div style='clear: both'></div>
+  <table>
+		<tr>
+			<td rowspan="2">
+				<iframe width="500" height="500" src="graphPaperProgrammingFrame.html"></iframe>
+			</td>
+			<td>
+					<div>
+						<table class='graphPaper'>
+							<tbody data-bind='foreach: rows'>
+								<tr data-bind='foreach: $data'>
+									<td data-bind='css: {isFilled: isFilled, isCursor: $root.cursor().x == $index() && $root.cursor().y == $parentContext.$index()}'>&nbsp;</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+			</td>
+		</tr>
+		<tr>
+			<td style="text-align:center;"><span style="display:inline-block; font-size:2em; background-color: green; color: white; padding:5px; border: solid 2px darkgreen; border-radius: 5px;" data-bind="click:evaluate">运行程序</span></td>
+		</tr>
+		
+  </table>
+</div>
+<xml id="hiBlocks" style="display: none" xmlns="http://www.w3.org/1999/xhtml">
+  <block type="gpp_draw" id="6" inline="false" x="14" y="0">
+    <value name="NEXTACTIONS">
+      <block type="gpp_move_down" id="7" inline="false">
+        <value name="NEXTACTIONS">
+          <block type="gpp_draw" id="8" inline="false">
+            <value name="NEXTACTIONS">
+              <block type="gpp_move_down" id="9" inline="false">
+                <value name="NEXTACTIONS">
+                  <block type="gpp_draw" id="10" inline="false">
+                    <value name="NEXTACTIONS">
+                      <block type="gpp_move_down" id="11" inline="false">
+                        <value name="NEXTACTIONS">
+                          <block type="gpp_draw" id="13" inline="false"></block>
+                        </value>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+              </block>
+            </value>
+          </block>
+        </value>
+      </block>
+    </value>
+  </block>
+  <block type="gpp_move_down" id="12" inline="false" x="20" y="45">
+    <value name="NEXTACTIONS">
+      <block type="gpp_draw" id="14" inline="false">
+        <value name="NEXTACTIONS">
+          <block type="gpp_move_up" id="15" inline="false">
+            <value name="NEXTACTIONS">
+              <block type="gpp_move_up" id="16" inline="false">
+                <value name="NEXTACTIONS">
+                  <block type="gpp_move_right" id="17" inline="false">
+                    <value name="NEXTACTIONS">
+                      <block type="gpp_draw" id="18" inline="false">
+                        <value name="NEXTACTIONS">
+                          <block type="gpp_move_right" id="19" inline="false"></block>
+                        </value>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+              </block>
+            </value>
+          </block>
+        </value>
+      </block>
+    </value>
+  </block>
+  <block type="gpp_draw" id="20" inline="false" x="22" y="89">
+    <value name="NEXTACTIONS">
+      <block type="gpp_move_up" id="21" inline="false">
+        <value name="NEXTACTIONS">
+          <block type="gpp_move_up" id="22" inline="false">
+            <value name="NEXTACTIONS">
+              <block type="gpp_draw" id="23" inline="false">
+                <value name="NEXTACTIONS">
+                  <block type="gpp_move_down" id="24" inline="false">
+                    <value name="NEXTACTIONS">
+                      <block type="gpp_draw" id="26" inline="false">
+                        <value name="NEXTACTIONS">
+                          <block type="gpp_move_down" id="27" inline="false"></block>
+                        </value>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+              </block>
+            </value>
+          </block>
+        </value>
+      </block>
+    </value>
+  </block>
+  <block type="gpp_move_down" id="28" inline="false" x="17" y="136">
+    <value name="NEXTACTIONS">
+      <block type="gpp_draw" id="29" inline="false">
+        <value name="NEXTACTIONS">
+          <block type="gpp_move_down" id="30" inline="false">
+            <value name="NEXTACTIONS">
+              <block type="gpp_draw" id="31" inline="false">
+                <value name="NEXTACTIONS">
+                  <block type="gpp_move_right" id="32" inline="false">
+                    <value name="NEXTACTIONS">
+                      <block type="gpp_move_right" id="33" inline="false">
+                        <value name="NEXTACTIONS">
+                          <block type="gpp_draw" id="34" inline="false"></block>
+                        </value>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+              </block>
+            </value>
+          </block>
+        </value>
+      </block>
+    </value>
+  </block>
+  <block type="gpp_move_up" id="35" inline="false" x="23" y="182">
+    <value name="NEXTACTIONS">
+      <block type="gpp_draw" id="36" inline="false">
+        <value name="NEXTACTIONS">
+          <block type="gpp_move_up" id="37" inline="false">
+            <value name="NEXTACTIONS">
+              <block type="gpp_draw" id="38" inline="false">
+                <value name="NEXTACTIONS">
+                  <block type="gpp_move_up" id="41" inline="false">
+                    <value name="NEXTACTIONS">
+                      <block type="gpp_draw" id="42" inline="false">
+                        <value name="NEXTACTIONS">
+                          <block type="gpp_move_right" id="40" inline="false"></block>
+                        </value>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+              </block>
+            </value>
+          </block>
+        </value>
+      </block>
+    </value>
+  </block>
+  <block type="gpp_draw" id="43" inline="false" x="14" y="228">
+    <value name="NEXTACTIONS">
+      <block type="gpp_move_right" id="44" inline="false">
+        <value name="NEXTACTIONS">
+          <block type="gpp_draw" id="45" inline="false">
+            <value name="NEXTACTIONS">
+              <block type="gpp_move_down" id="46" inline="false">
+                <value name="NEXTACTIONS">
+                  <block type="gpp_draw" id="47" inline="false">
+                    <value name="NEXTACTIONS">
+                      <block type="gpp_move_down" id="48" inline="false">
+                        <value name="NEXTACTIONS">
+                          <block type="gpp_draw" id="49" inline="false"></block>
+                        </value>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+              </block>
+            </value>
+          </block>
+        </value>
+      </block>
+    </value>
+  </block>
+  <block type="gpp_move_down" id="50" inline="false" x="14" y="276">
+    <value name="NEXTACTIONS">
+      <block type="gpp_draw" id="51" inline="false">
+        <value name="NEXTACTIONS">
+          <block type="gpp_move_left" id="52" inline="false">
+            <value name="NEXTACTIONS">
+              <block type="gpp_draw" id="53" inline="false">
+                <value name="NEXTACTIONS">
+                  <block type="gpp_move_right" id="54" inline="false">
+                    <value name="NEXTACTIONS">
+                      <block type="gpp_move_right" id="55" inline="false">
+                        <value name="NEXTACTIONS">
+                          <block type="gpp_move_right" id="56" inline="false"></block>
+                        </value>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+              </block>
+            </value>
+          </block>
+        </value>
+      </block>
+    </value>
+  </block>
+  <block type="gpp_draw" id="57" inline="false" x="22" y="329">
+    <value name="NEXTACTIONS">
+      <block type="gpp_move_up" id="58" inline="false">
+        <value name="NEXTACTIONS">
+          <block type="gpp_draw" id="60" inline="false">
+            <value name="NEXTACTIONS">
+              <block type="gpp_move_up" id="59" inline="false">
+                <value name="NEXTACTIONS">
+                  <block type="gpp_draw" id="61" inline="false">
+                    <value name="NEXTACTIONS">
+                      <block type="gpp_move_up" id="62" inline="false">
+                        <value name="NEXTACTIONS">
+                          <block type="gpp_move_up" id="63" inline="false"></block>
+                        </value>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+              </block>
+            </value>
+          </block>
+        </value>
+      </block>
+    </value>
+  </block>
+  <block type="gpp_draw" id="64" inline="false" x="17" y="383"></block>
+</xml>
+  		<br>
+		<br>
+		</div>
+	</body>
+
+
+</html>
