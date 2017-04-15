@@ -77,10 +77,29 @@
 	<script src="js/knockout-3.1.0.js"></script>
 
   <script type='text/javascript'>
+      var getUrlParameter = function getUrlParameter(sParam) {
+          var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+              sURLVariables = sPageURL.split('&'),
+              sParameterName,
+              i;
+
+          for (i = 0; i < sURLVariables.length; i++) {
+              sParameterName = sURLVariables[i].split('=');
+
+              if (sParameterName[0] === sParam) {
+                  return sParameterName[1] === undefined ? false : sParameterName[1];
+              }
+          }
+          return false;
+      };
+      var num = getUrlParameter('num');
+
+      if (!num) num = 5;
+
   		var viewModel = {};
 
-			viewModel.rowCount = ko.observable(5);
-			viewModel.columnCount = ko.observable(5);
+			viewModel.rowCount = ko.observable(num);
+			viewModel.columnCount = ko.observable(num);
 			viewModel.cursor = ko.observable({x: 0, y: 0});
 
 			var rows = [];
