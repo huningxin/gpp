@@ -94,7 +94,7 @@
       };
       var num = getUrlParameter('num');
 
-      if (!num) num = 5;
+      if (!num || num < 2) num = 5;
 
   		var viewModel = {};
 
